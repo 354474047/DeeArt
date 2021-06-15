@@ -39,13 +39,15 @@
           <label>
             <span id="input3">用户名</span>
             <input type="text" placeholder="" ref="input3"
-                   @blur="regularExpression(userInfo.username,/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,'用户名','input3')"
+                   @blur="regularExpression(userInfo.username,
+                   /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,'用户名','input3')"
                    v-model="userInfo.username" key="reg_username"/>
           </label>
           <label>
             <span id="input4">邮箱</span>
             <input type="email" v-model="userInfo.email" key="reg_email" ref="input4"
-                   @blur="regularExpression(userInfo.email,/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,'邮箱','input4')"/>
+                   @blur="regularExpression(userInfo.email,
+                   /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,'邮箱','input4')"/>
           </label>
           <label>
             <span id="input5">密码</span>
@@ -59,7 +61,7 @@
       </div>
     </div>
   </div>
-<!--  <button @click="test">测试</button>-->
+  <!--  <button @click="test">测试</button>-->
   <LoginBg></LoginBg>
 </template>
 
@@ -85,16 +87,17 @@ export default {
       isPWDPass: false,
       isEmailPass: false,
       isPass: false,
-      indexData:{},
-      test:1
+      indexData: {},
+      test: 1
     }
   },
   methods: {
 
-    ...mapMutations(['changeLogin']),
+    ...mapMutations(['changeLogin', 'changeIndexData']),
     login() {
       let _this = this;
-      if (this.userInfo.username === '' || this.userInfo.pwd === '') {
+      if (this.userInfo.username === '' || this.userInfo.username === null
+        || this.userInfo.pwd === '' || this.userInfo.pwd === null) {
         alert('账号或密码不能为空');
       } else {
         testAxios('login', 'post', {
@@ -110,21 +113,13 @@ export default {
             // 将用户token保存到vuex中
             _this.changeLogin({Authorization: res.data.userToken});
             let __this = _this
-            testAxios('index','post',{}).then(res => {
-              if (res.data.success!==false &&(localStorage.getItem('Authorization') !== null || localStorage.getItem('Authorization') !== '')){
-                console.log(res.data.login);
-                alert('登陆成功');
-                __this.changeIndexData(res.data)
-                __this.$router.push('/index');
-              }else {
-                alert('服务器出错！')
-              }
-            }).catch(error => {
-              console.log(error)
-              alert('服务器出错了！')
-
-            });
-
+            if (localStorage.getItem('Authorization') !== null
+              || localStorage.getItem('Authorization') !== '') {
+              console.log(res.data);
+              alert('登陆成功');
+              __this.changeIndexData(res.data)
+              __this.$router.push('/index');
+            }
           }
 
         }).catch(error => {

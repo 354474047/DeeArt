@@ -7,7 +7,7 @@
             <label for="audio" class="inputlabelBox">
               <div class="inputBox"></div>
             </label>
-            <input  id="test" type="file" multiple="multiple"  name="audio"/>
+            <input id="test" type="file" multiple="multiple" name="audio"/>
             <div>添加一条音频</div>
           </div>
           <div class="photo-right">
@@ -18,7 +18,7 @@
           <input maxlength="50" class="label-body-input" placeholder="为你的作品加上标签例：#人文#黑白"/>
         </div>
         <div class="submit-btn">
-          <input value="提交" type="submit">
+          <input value="提交" @click="musicUpload" type="submit">
           <input value="重置" type="reset">
         </div>
       </form>
@@ -28,6 +28,7 @@
 
 <script>
 import $ from 'jquery'
+import {testAxios} from "@/network";
 
 $(function () {
   $("#test").change(function () {
@@ -62,7 +63,15 @@ $(function () {
   }
 })
 export default {
-  name: "VideoUpload"
+  name: "VideoUpload",
+  data() {
+    return {}
+  },
+  methods: {
+    musicUpload() {
+      testAxios('')
+    }
+  }
 }
 </script>
 
