@@ -4,7 +4,7 @@
     <div class="user-info">
       <div class="user-info-body">
         <slot name="user-info">
-          <a href="#">
+          <a>
             <svg t="1623066941684" class="icon-user" viewBox="0 0 1026 1024" version="1.1"
                  xmlns="http://www.w3.org/2000/svg"
                  p-id="2595" width="50px" height="50px">
@@ -31,9 +31,9 @@
                 fill="#F7B970" p-id="2602"></path>
             </svg>
           </a>
-          <span class="user-info-body-span user-name"><a href="#">爱吃王尼玛</a></span>
-          <span class="user-info-body-span time">发布时间：2021年06月07日17:23</span>
-          <span class="like-me"><a href="#">+ 关 注</a></span>
+          <span class="user-info-body-span user-name"><a href="#">{{ userUploadInfo.userName }}</a></span>
+          <span class="user-info-body-span time">发布时间：{{ userUploadInfo.articleDate }}</span>
+          <span class="like-me"><a >+ 关 注</a></span>
         </slot>
       </div>
     </div>
@@ -47,7 +47,7 @@
     </div>
     <!--  内容的标签  -->
     <div class="label">
-      <a href="#">
+      <a>
         <svg t="1623134852221" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
              p-id="20017" width="22" height="22">
           <path
@@ -55,12 +55,10 @@
             p-id="20018"></path>
         </svg>
       </a>
-      <a href="#">
-        #人文
+      <a v-for="item of userUploadInfo.lableName" href="" :key="item">
+          #{{item}}
       </a>
-      <a href="#">
-        #黑白
-      </a>
+
     </div>
 
   </div>
@@ -69,25 +67,25 @@
   <div class="user-handle">
     <div class="handle-border">
       <div class="user-handle-body">
-        <a class="user-handle-a" href="#" title="转发">
+        <a class="user-handle-a"  title="转发">
           <svg t="1623055615538" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="8966" width="22px" height="22px">
             <path
               d="M144.4 924.1c-1 0-2.1 0-3.1-0.1-21.6-1.5-39.1-18-41.8-39.5-1.8-13.6-41-337.2 117.5-517.2 58.7-66.7 136.1-104.9 230.5-114v-67.5c0-32.4 17.8-62 46.4-77.3 28.6-15.2 63-13.5 89.9 4.6l309.3 205.8c24.4 16.3 39 43.5 39 72.9 0 29.4-14.6 56.6-39 72.9L583.6 670.9c-27 17.9-61.4 19.5-89.9 4.2-28.5-15.3-46.2-44.9-46.2-77.2v-37.6C268 602.7 188.9 887.5 188.1 890.6c-5.4 19.9-23.4 33.5-43.7 33.5z m393.7-732.5v104.9c0 25-20.3 45.3-45.3 45.3-89.2 0-157.2 27.9-207.8 85.4-55.7 63.2-81.4 152-92.6 233.8 62.4-99.1 159.6-196.6 300.4-196.6 25 0 45.3 20.3 45.3 45.3v82.7l301.1-200.5-301.1-200.3zM868 427.1h0.2-0.2z m-25.1-37.7z"
               fill="#2c2c2c" p-id="8967"></path>
           </svg>
-          <a class="user-handle-a-span">333</a>
+          <a class="user-handle-a-span">{{ userUploadInfo.articleForwordCount }}</a>
         </a>
-        <a class="user-handle-a" href="#" @click="showDiscuss" title="评论">
+        <a class="user-handle-a"  @click="showDiscuss" title="评论">
           <svg t="1623055180362" class="icon" viewBox="0 0 1188 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="7306" width="22px" height="22px">
             <path
               d="M594.285714 0C922.514286 0 1188.571429 219.538286 1188.571429 490.368c0 270.811429-266.057143 490.368-594.285715 490.368-108.946286 0-211.053714-24.192-298.843428-66.413714l-25.563429 20.114285c-94.592 73.417143-181.668571 128.548571-156.397714 54.381715l2.157714-5.961143c17.225143-44.763429 28.214857-100.809143 32.969143-168.118857C56.118857 728.32 0 614.765714 0 490.368 0 219.556571 266.057143 0 594.285714 0z m0 54.857143C294.290286 54.857143 54.857143 252.416 54.857143 490.368c0 102.784 44.489143 200.484571 125.092571 278.491429l6.107429 5.814857 19.108571 17.846857-1.828571 26.093714c-2.56 36.169143-6.838857 69.577143-12.909714 100.205714l-1.609143 7.771429 1.810285-1.28a1767.387429 1767.387429 0 0 0 64.109715-48.713143l33.462857-26.642286 31.012571 14.921143c82.541714 39.698286 176.786286 61.001143 275.072 61.001143 299.995429 0 539.428571-197.558857 539.428572-435.510857S894.281143 54.857143 594.285714 54.857143zM329.142857 420.571429a73.142857 73.142857 0 1 1 0 146.285714 73.142857 73.142857 0 0 1 0-146.285714z m274.285714 0a73.142857 73.142857 0 1 1 0 146.285714 73.142857 73.142857 0 0 1 0-146.285714z m274.285715 0a73.142857 73.142857 0 1 1 0 146.285714 73.142857 73.142857 0 0 1 0-146.285714z"
               p-id="7307"></path>
           </svg>
-          <a class="user-handle-a-span">233</a>
+          <a class="user-handle-a-span">{{ userUploadInfo.articleCommentCount }}</a>
         </a>
-        <a class="user-handle-a" href="#" title="点赞">
+        <a class="user-handle-a"  title="点赞">
           <svg t="1623055144256" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="6400" width="22px" height="22px">
             <path
@@ -97,7 +95,7 @@
               d="M289.39 939.445c-19.122 0-34.615-15.493-34.615-34.615V443.304c0-19.123 15.493-34.615 34.615-34.615 19.121 0 34.615 15.492 34.615 34.615V904.83c0 19.122-15.494 34.615-34.615 34.615z"
               p-id="6402"></path>
           </svg>
-          <a class="user-handle-a-span">233</a>
+          <a class="user-handle-a-span">{{ userUploadInfo.articleLikeCount }}</a>
         </a>
       </div>
     </div>
@@ -195,11 +193,18 @@ export default {
   components: {Discuss},
   data() {
     return {
-      userMessage: [],
-      content: [],
-      count: 10
+      count:5,
+
     }
   },
+props:{
+    userUploadInfo:{
+      type:Object,
+      default:['#暂无'],
+      require:true
+    }
+}
+,
   methods: {
     showDiscuss() {
 
@@ -316,6 +321,7 @@ li {
 }
 
 .like-me {
+  cursor: pointer;
   margin-top: 20px;
   align-items: center;
   margin-left: 40px;

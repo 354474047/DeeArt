@@ -10,22 +10,14 @@
   <div class="user-upload-content">
     <router-view></router-view>
   </div>
-  <div class="user-content" v-for="count in count">
+  <div class="user-content" v-for="userUploadInfo of indexData" :key="userUploadInfo">
     <div class="user-content-body">
-      <!--   用户发布的图片   -->
-      <user-opus #opus-content>
-        <!--        <video id="video" autoplay="autoplay" controls="controls" style="width:450px;height: 250px;">-->
-        <!--          <source src="../../../../assets/video/login/vlogin01.mp3" type="video/ogg">-->
-        <!--          <source src="../../../../assets/video/login/vlogin01.mp3" type="video/mp3">-->
-        <!--          Your browser does not support the video tag.-->
-        <!--        </video>-->
-        <img src="../../../../assets/img/works/DeeaArt01.jpg" class="opus-img" title="查看大图"/>
-        <!--        <audio controls>-->
-        <!--          <source src="../../../../assets/mp3/001.mp3" type="audio/ogg">-->
-        <!--          <source src="../../../../assets/mp3/001.mp3" type="audio/mpeg">-->
-        <!--          您的浏览器不支持 audio 元素。-->
-        <!--        </audio>-->
-        <!--        <span class="opus-img-content">发表的文字内容</span>-->
+      <!--   用户发布的媒体   -->
+      <user-opus  v-bind:userUploadInfo="userUploadInfo" #opus-content>
+        <video-media v-if="userUploadInfo.articleSort==='video'" v-bind:video-src="userUploadInfo.adress"></video-media>
+        <audio-media v-else-if="userUploadInfo.articleSort==='audio'" v-bind:audio-src="userUploadInfo.adress"></audio-media>
+        <img-media v-else-if="userUploadInfo.articleSort==='img'" v-bind:img-src="userUploadInfo.adress"></img-media>
+        <text-media v-else v-bind:text-content="userUploadInfo.article_content"></text-media>
       </user-opus>
     </div>
   </div>
@@ -39,18 +31,30 @@ import PhotoUpload from "@/components/common/foreground/index/userUpload/upload/
 import VideoUpload from "@/components/common/foreground/index/userUpload/upload/VideoUpload";
 import MusicUpload from "@/components/common/foreground/index/userUpload/upload/MusicUpload";
 import TextUpload from "@/components/common/foreground/index/userUpload/upload/TextUpload";
+import VideoMedia from "@/components/common/foreground/index/uploadMedia/VideoMedia";
+import AudioMedia from "@/components/common/foreground/index/uploadMedia/AudioMedia";
+import ImgMedia from "@/components/common/foreground/index/uploadMedia/ImgMedia";
+import TextMedia from "@/components/common/foreground/index/uploadMedia/TextMedia";
+import {computed} from "vue";
 
 export default {
   name: "index",
-  components: {TextUpload, MusicUpload, VideoUpload, PhotoUpload, UserUpload, UserOpus, TopNavigation},
+  components: {
+    TextMedia,
+    ImgMedia,
+    AudioMedia,
+    VideoMedia, TextUpload, MusicUpload, VideoUpload, PhotoUpload, UserUpload, UserOpus, TopNavigation},
   data() {
     return {
-      count: 10,
+      dataCount:this.$store.state.indexData.length,
       test:0,
-      indexData:{}
+      indexData:this.$store.state.indexData
     }
   },
   mounted() {
+
+  },
+  computed:{
 
   }
 
@@ -64,13 +68,6 @@ export default {
   margin-left: 6px;
 }
 
-.opus-img {
-  cursor: zoom-in;
-  cursor: url("../../../../assets/img/works/fada.png") auto;
-  height: 300px;
-  width: 450px;
-  background-size: 100%;
-}
 
 body {
   background-image: url('~assets/img/login/ilogin01.jpg');

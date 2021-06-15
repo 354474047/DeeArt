@@ -71,7 +71,6 @@ body {
   width: 200px;
   height: 100%;
   background-color: #666666;
-  /* font: 12px/200% "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体"; */
 }
 
 .m-img img {
@@ -95,9 +94,7 @@ body {
 
 .right {
   width: 82%;
-  /* padding: 200px; */
   margin-left: 260px;
-  /* flex-direction: column; */
   float: left;
 }
 

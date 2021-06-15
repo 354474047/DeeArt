@@ -114,6 +114,7 @@ export default {
               if (res.data.success!==false &&(localStorage.getItem('Authorization') !== null || localStorage.getItem('Authorization') !== '')){
                 console.log(res.data.login);
                 alert('登陆成功');
+                __this.changeIndexData(res.data)
                 __this.$router.push('/index');
               }else {
                 alert('服务器出错！')
@@ -131,10 +132,6 @@ export default {
         });
       }
     },
-test(){
-  Event.$emit('data-login', this.test);
-},
-
     /**
      * 注册
      * */
@@ -150,7 +147,7 @@ test(){
           console.log(error)
         })
       } else {
-        alert('请填写信息')
+        alert('请填写正确信息')
       }
 
     },
